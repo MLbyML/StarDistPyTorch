@@ -82,6 +82,7 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Welcome to StarDistPyTorch’s documentation!</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
 </ul>
 </div>
             
@@ -148,7 +149,7 @@
             
   <div class="section" id="welcome-to-stardistpytorch-s-documentation">
 <h1>Welcome to StarDistPyTorch’s documentation!<a class="headerlink" href="#welcome-to-stardistpytorch-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p><strong>StarDistPyTorch</strong> is an attempt to reimplement <strong>StarDist</strong> in <strong>PyTorch</strong>. Notable differences in this implementation include:</p>
+<p><strong>StarDistPyTorch</strong> is an attempt to reimplement <strong>StarDist</strong> in <strong>PyTorch</strong>. Many of the original, helper functions from <em>StarDist</em> are  re-used in <em>StarDistPyTorch</em>. Notable differences include:</p>
 <ul class="simple">
 <li><p>New function to patch images</p></li>
 <li><p>Slightly different loss function to incorporate class imbalance (In <em>StarDistPyTorch</em>, background pixels are weighted 10 times less than foreground pixels during the evaluation of the <em>Binary Cross Entropy Loss</em>)</p></li>
@@ -179,6 +180,10 @@ conda activate stardistPytorchEnv
 python3 -m ipykernel install --user --name stardistPytorchEnv --display-name <span class="s2">&quot;stardistPytorchEnv&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/mpicbg-csbd/stardist/">StarDist</a></p>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>

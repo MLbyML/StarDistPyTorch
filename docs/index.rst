@@ -5,7 +5,7 @@
 
 Welcome to StarDistPyTorch's documentation!
 ===========================================
-**StarDistPyTorch** is an attempt to reimplement **StarDist** in **PyTorch**. Notable differences in this implementation include:
+**StarDistPyTorch** is an attempt to reimplement **StarDist** in **PyTorch**. Many of the original, helper functions from *StarDist* are  re-used in *StarDistPyTorch*. Notable differences include:
 
 * New function to patch images
 * Slightly different loss function to incorporate class imbalance (In *StarDistPyTorch*, background pixels are weighted 10 times less than foreground pixels during the evaluation of the *Binary Cross Entropy Loss*)
@@ -38,7 +38,10 @@ Installation
    conda activate stardistPytorchEnv
    python3 -m ipykernel install --user --name stardistPytorchEnv --display-name "stardistPytorchEnv"
 
-   
+References
+===================
+`StarDist <https://github.com/mpicbg-csbd/stardist/>`_
+
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
