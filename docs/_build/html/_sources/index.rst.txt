@@ -10,7 +10,7 @@ Welcome to StarDistPyTorch's documentation!
 * New function to patch images
 * Slightly different loss function to incorporate class imbalance (In *StarDistPyTorch*, background pixels are weighted 10 times less than foreground pixels during the evaluation of the *Binary Cross Entropy Loss*)
 * Grid is *not* downscaled (*StarDist* predicted on a downscaled-image to save memory)
-* `self.train_foreground_only` parameter, which is used for effective sampling of patches during training in *StarDist*, is not implemented in *StarDistPyTorch*.
+* `self.train_foreground_only` parameter, which is used for effective sampling of patches during training in *StarDist*, is not implemented in *StarDistPyTorch*
 * Shape completion is not implemented in *StarDistPyTorch*
 
 Potential TODOs on the horizon include:
@@ -24,11 +24,14 @@ Potential TODOs on the horizon include:
    :maxdepth: 2
    :caption: Contents:
 
+.. image:: images/demo.png
+   :width: 600
+
 
 
 Installation
 ==================
-* Open a new terminal and type in the following commands inside a preferred directory location
+Open a new terminal and type in the following commands inside a preferred directory location
 
 .. code-block:: bash
 
@@ -38,10 +41,41 @@ Installation
    conda activate stardistPytorchEnv
    python3 -m ipykernel install --user --name stardistPytorchEnv --display-name "stardistPytorchEnv"
 
+.. note::
+
+   `stardistPytorchEnv` includes installation of `PyTorch 9.0`. 
+   Adjust this based on the CUDA version on your system. 
+
+Training
+=========
+.. image:: images/trainingHistory.png
+   :width: 600
+
+Currently images are split into training and validation sets. Then they are patched with size `(256 x 256)` and augmented. Lastly, a call is made to `training.py` through the code block below:
+
+.. code-block:: python
+
+   trainHist, valHist = trainNetwork(net = net, trainData = dataXt, valData = dataXv, trainDataGT = np.array(Y_trn_dist), 
+   valDataGT = np.array(Y_val_dist), trainDataMask = dataMt, valDataMask = dataMv, 
+   postfix = postfix, directory="models/", device = device, verbose=False, 
+   numOfEpochs= 400, stepsPerEpoch=100, miniBatchSize=4, learningRate=3e-4, supervised=True, valSize=valSize)
+   
+It is seen that incorporating for class imbalance gives better performance.
+
+Prediction
+============
+.. image:: images/prediction.png
+   :width: 600
+
+
+The *Average Precision* for the DSB test data set of 50 images, comes out to be **0.836** at IOU = 0.5 with *StarDistPyTorch*. For reference, the same metric is equal to **0.864** at IOU = 0.5 with *StarDist*. 
+
+The optimal threshold for the DSB test data set of 50 images, comes out to be `prob_thresh=0.1` and `nms_thresh=0.2` with *StarDistPyTorch*. For reference, the same thresholds come out to be `prob_thresh=0.41` and `nms_thresh=0.5` with *StarDist* respectively.
+
 References
 ===================
-`StarDist <https://github.com/mpicbg-csbd/stardist/>`_
+| `StarDist <https://github.com/mpicbg-csbd/stardist/>`_
+| `DSB <https://www.kaggle.com/c/data-science-bowl-2019>`_
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
+
