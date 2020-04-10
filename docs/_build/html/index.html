@@ -34,7 +34,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="v1.0" href="v1.0.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -78,15 +79,11 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to StarDistPyTorch’s documentation!</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#training">Training</a></li>
-<li><a class="reference internal" href="#prediction">Prediction</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="v1.0.html">v1.0</a></li>
 </ul>
-</div>
+
             
           
         </div>
@@ -167,49 +164,18 @@
 <div class="line">Adding functionality for evaluating <em>field of view</em></div>
 </div>
 </div>
-<div class="toctree-wrapper compound">
-</div>
 <a class="reference internal image-reference" href="_images/demo.png"><img alt="_images/demo.png" src="_images/demo.png" style="width: 600px;" /></a>
-</div>
-<div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Open a new terminal and type in the following commands inside a preferred directory location</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/MLbyML/StarDistPyTorch.git
-git checkout BaseImplementation
-conda env create -f environment.yml
-conda activate stardistPytorchEnv
-python3 -m ipykernel install --user --name stardistPytorchEnv --display-name <span class="s2">&quot;stardistPytorchEnv&quot;</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><cite>stardistPytorchEnv</cite> includes installation of <cite>PyTorch 9.0</cite>.
-Adjust this based on the CUDA version on your system.</p>
-</div>
-</div>
-<div class="section" id="training">
-<h1>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="_images/trainingHistory.png"><img alt="_images/trainingHistory.png" src="_images/trainingHistory.png" style="width: 600px;" /></a>
-<p>Currently images are split into training and validation sets. Then they are patched with size <cite>(256 x 256)</cite> and augmented. Lastly, a call is made to <cite>training.py</cite> through the code block below:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainHist</span><span class="p">,</span> <span class="n">valHist</span> <span class="o">=</span> <span class="n">trainNetwork</span><span class="p">(</span><span class="n">net</span> <span class="o">=</span> <span class="n">net</span><span class="p">,</span> <span class="n">trainData</span> <span class="o">=</span> <span class="n">dataXt</span><span class="p">,</span> <span class="n">valData</span> <span class="o">=</span> <span class="n">dataXv</span><span class="p">,</span> <span class="n">trainDataGT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y_trn_dist</span><span class="p">),</span>
-<span class="n">valDataGT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y_val_dist</span><span class="p">),</span> <span class="n">trainDataMask</span> <span class="o">=</span> <span class="n">dataMt</span><span class="p">,</span> <span class="n">valDataMask</span> <span class="o">=</span> <span class="n">dataMv</span><span class="p">,</span>
-<span class="n">postfix</span> <span class="o">=</span> <span class="n">postfix</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;models/&quot;</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="n">numOfEpochs</span><span class="o">=</span> <span class="mi">400</span><span class="p">,</span> <span class="n">stepsPerEpoch</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">miniBatchSize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">learningRate</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">,</span> <span class="n">supervised</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">valSize</span><span class="o">=</span><span class="n">valSize</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>It is seen that incorporating for class imbalance gives better performance.</p>
-</div>
-<div class="section" id="prediction">
-<h1>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="_images/prediction.png"><img alt="_images/prediction.png" src="_images/prediction.png" style="width: 600px;" /></a>
-<p>The <em>Average Precision</em> for the DSB test data set of 50 images, comes out to be <strong>0.836</strong> at IOU = 0.5 with <em>StarDistPyTorch</em>. For reference, the same metric is equal to <strong>0.864</strong> at IOU = 0.5 with <em>StarDist</em>.</p>
-<p>The optimal threshold for the DSB test data set of 50 images, comes out to be <cite>prob_thresh=0.1</cite> and <cite>nms_thresh=0.2</cite> with <em>StarDistPyTorch</em>. For reference, the same thresholds come out to be <cite>prob_thresh=0.41</cite> and <cite>nms_thresh=0.5</cite> with <em>StarDist</em> respectively.</p>
-</div>
-<div class="section" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
-<div class="line-block">
-<div class="line"><a class="reference external" href="https://github.com/mpicbg-csbd/stardist/">StarDist</a></div>
-<div class="line"><a class="reference external" href="https://www.kaggle.com/c/data-science-bowl-2019">DSB</a></div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="v1.0.html">v1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="v1.0.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1.0.html#training">Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1.0.html#prediction">Prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="v1.0.html#references">References</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -218,6 +184,13 @@ Adjust this based on the CUDA version on your system.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="v1.0.html" class="btn btn-neutral float-right" title="v1.0" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
   
 
   <hr/>
